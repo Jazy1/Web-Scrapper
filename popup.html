@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Product Scrapper</title>
+  <link rel="stylesheet" type="text/css" href="assests/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="assests/style.css">
+</head>
+
+<body class="body-popup">
+
+  <h2 style="text-align: center;">Product Scrapper</h2>
+
+  <!-- Connection status -->
+  <div class="alert alert-danger" style="text-align: center;margin-top: 20px;padding: 0.4rem;" hidden
+    id="status-not-connected">
+    <h5>Not connected to any site.</h5>
+  </div>
+  <div class="alert alert-success" style="text-align: center;margin-top: 20px;padding: 0.4rem;" hidden
+    id="status-connected">
+    <h5>Connected </h5>
+  </div>
+
+  <!-- Btn box 1 -->
+  <div class="button-box">
+    <button type="button" class="btn btn-primary" id="preview-btn-1" data-bs-toggle="modal"
+      data-bs-target="#preview">Preview</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#export"
+      id="export-btn-1">Export</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#toSite">Add to Site</button>
+  </div>
+
+  <!-- Main Section -->
+  <div class="section" id="section-fields">
+
+  </div>
+
+  <!-- Btn box 2 -->
+  <div class="button-box">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#preview"
+      id="preview-btn-2">Preview</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#export"
+      id="export-btn-2">Export</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#toSite">Add to Site</button>
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="modal fade" id="preview" tabindex="-1" aria-labelledby="Preview" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="preview-modal-label">Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div id="preview-boxes">
+
+          </div>
+
+          <div id="table-wrapper">
+
+            <table id="data-table" class="no-display">
+
+            </table>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal fade" id="export" tabindex="-1" aria-labelledby="Export" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="export-modal-label">Export</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="export-modal-body">
+          <div style="display: flex;align-items: center;justify-content: center;">
+            <a download="product.csv" href="#" class="btn btn-link" id="download-csv">Export fields only</a>
+            <button class="btn btn-link" id="download-csv-with-files">Export files and fields</button>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add to site Modal -->
+  <div class="modal fade" id="toSite" tabindex="-1" aria-labelledby="toSite" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="preview-modal-label">Select appropriate fields for product properties</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div style="display: flex; justify-content: space-between;">
+            <div style="width: 50%; display: flex; align-items: center; justify-content: center;">
+              <h3>Properties</h3>
+            </div>
+            <div style="width: 50%; display: flex; align-items: center; justify-content: center;">
+              <h3>Fields</h3>
+            </div>
+          </div>
+
+          <!-- Here comes the properties u wanna import -->
+          <div id="fields-selection-for-prod"
+            style="max-height: 200px;max-width: 466px;overflow: auto;margin: 18px 0px;">
+
+          </div>
+
+          <center style="margin-top: 20px;">
+            <Button class="btn btn-primary" id="add-selection-box-btn">+</Button>
+            <Button class="btn btn-primary" id="save-selection-btn">Save Selections</Button>
+            <Button class="btn btn-primary" id="delete-selection-btn">Delete Selections</Button>
+            <Button class="btn btn-primary" id="add-to-site-btn">Add to Site</Button>
+            <div class="spinner-border" hidden id="spinner"></div>
+
+          </center>
+
+          <div class="alert alert-success no-display" style="margin-top: 1rem;" id="success-banner-selections-saved"
+            role="alert">
+            Selections saved successfully
+          </div>
+
+          <div class="alert alert-success no-display" style="margin-top: 1rem;" id="success-banner-selections-deleted"
+            role="alert">
+            Selections Deleted
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+
+<script type="text/javascript" src="assests/excellentexport.js"></script>
+<script type="text/javascript" src="assests/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="popup/utils.js"></script>
+<script src="popup/export to site.js"></script>
+<script src="popup/preview.js"></script>
+<script src="popup/popup.js"></script>
+
+</html>

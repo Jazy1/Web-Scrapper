@@ -1,0 +1,44 @@
+{
+    "manifest_version": 2,
+    "name": "Product Scrapper",
+    "description": "Scrape data from websites into csv files.",
+    "version": "3.7",
+
+    "icons": {
+        "16": "images/icon-16.png",
+        "19": "images/icon-19.png",
+        "32": "images/icon-38.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+    },
+
+    "content_scripts": [
+		{
+			"matches": ["*://*/*"],
+            "js": [
+                "content_script/content_scripts.js"
+            ]
+        }
+    ],
+
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+          "16": "images/icon-16.png",
+          "19": "images/icon-19.png",
+          "32": "images/icon-38.png",
+          "48": "images/icon-48.png",
+          "128": "images/icon-128.png"
+        },
+        "default_title": "Product Scrapper"
+    },
+
+    "options_page": "options_page/settings.html",
+
+    "background": {
+        "scripts": ["background_page/background.js"],
+        "persistent": true
+    },
+
+    "permissions": ["activeTab", "declarativeContent", "storage", "contextMenus", "downloads"]
+}

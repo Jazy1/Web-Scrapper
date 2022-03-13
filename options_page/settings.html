@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings for Product Scrapper</title>
+
+    <link rel="stylesheet" href="../assests//bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assests/style.css">
+</head>
+
+<body class="body-settings center-things">
+
+    <h1>Settings and advanced features</h1>
+
+    <!-- General Settings -->
+    <div class="section-settings">
+        <div class="bar">
+            <div class="btn-box">
+                <h3>General Settings</h3>
+            </div>
+        </div>
+        <span style="font-size: smaller;"> </span>
+        <div class="seperator" style="margin-top: 10px;"></div>
+
+        <div class="fields">
+
+            <div style="margin: 15px 0px;">
+                <label>Wait for Categories to load. Def: 5 secs</label>
+                <input class="form-control" type="number" id="category-load-time" placeholder="In seconds">
+                <span style="font-size: smaller;">If your categories are not showing, increase load time.</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Website connection -->
+    <div class="section-settings">
+        <div class="bar">
+            <div class="btn-box">
+                <h3>Site Connection Configuration</h3>
+            </div>
+        </div>
+        <span style="font-size: smaller;">Add consumer key and consumer secert of woocommerce site you want to import
+            your products to.
+            <br>
+            <h5 style="margin-top: 5px;">Status: <span hidden id="status-not-connected" class="bg-danger text-white"
+                    style="padding: 3px 4px;border-radius: 5px;">Not Connected</span> <span hidden id="status-connected"
+                    class="bg-success text-white" style="padding: 3px 4px;
+            border-radius: 5px;">Connected</span></h5>
+        </span>
+        <div class="seperator" style="margin-top: 10px;"></div>
+
+        <div class="fields">
+            <div style="margin: 15px 0px;">
+                <label>Site domain</label>
+                <input class="form-control" type="text" name="" id="site-domain" placeholder="Enter link">
+                <span style="font-size: smaller;">Domain where site is hosted. <br>Eg: aliexpress.com,
+                    mwclients.com/extension-test</span>
+            </div>
+
+            <div style="margin: 15px 0px;">
+                <label>Consumer Key</label>
+                <input class="form-control" type="text" name="" id="consumer-key" placeholder="Consumer Key">
+            </div>
+
+            <div style="margin: 15px 0px;">
+                <label>Consumer Secert</label>
+                <input class="form-control" type="text" name="" id="consumer-secert" placeholder="Consumer Secert">
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary" id="connect-to-site">Connect</button>
+        <button class="btn btn-primary" id="delete-connection">Delete</button>
+        <div class="spinner-border" style="margin-left: 20px;" hidden id="spinner"></div>
+    </div>
+
+    <!-- Fields -->
+    <div class="section-settings">
+        <div class="bar">
+            <div class="btn-box">
+                <h3>Sitemap Editor</h3>
+            </div>
+        </div>
+
+        <span style="font-size: smaller;">To remove any field, clear the name or leave the name field empty and save.
+            It'll be removed automatically. <br>
+            If you selected empty, don't enter anything in selector field.
+        </span>
+        <div class="seperator" style="margin-top: 10px;"></div>
+
+        <div class="fields" id="main-fields"
+            style="min-height: 3rem;max-height: 40rem;overflow: auto;padding: 0px 12px;">
+
+        </div>
+
+        <div class="alert alert-success no-display" id="success-banner-fields" role="alert">
+            Fields saved successfully
+        </div>
+
+        <button class="btn btn-primary" id="save-fields">Save Fields</button>
+        <button class="btn btn-primary" id="add-fields">+</button>
+    </div>
+
+    <!-- sitemap -->
+    <div class="section-settings">
+        <div class="bar">
+            <h3>Sitemap</h3>
+
+            <div class="btn-box">
+                <!-- <button class="btn btn-primary" id="add">+</button> -->
+            </div>
+        </div>
+        <span style="font-size: smaller;">
+            Fields above are derived from the the template below. You can either import template by pasting the valid
+            json below OR by editing fields above. DO NOT EDIT TEMPLATE DIRECTLY UNLESS YOU KNOW WHAT YOU'RE DOING. If
+            you've somehow corrupted the template then just delete it.
+        </span>
+        <div class="seperator" style="margin-top: 10px;"></div>
+
+        <div class="fields" id="main-sitemap">
+            <div class="form-group">
+                <textarea class="form-control" id="display-sitemap" rows="3" spellcheck="false"></textarea>
+            </div>
+        </div>
+
+        <div class="alert alert-success no-display" id="success-banner-sitemap" role="alert">
+            Sitemap saved successfully
+        </div>
+
+        <button class="btn btn-primary" id="save-sitemap">Save Sitemap</button>
+        <button class="btn btn-primary" id="delete-sitemap">Delete Sitemap</button>
+        <button class="btn btn-primary" id="export-sitemap">Export Sitemap</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="section-settings no-display" id="progress-box">
+        <div class="main-bar">
+            <h3 id="progress-heading">Scraping...</h3>
+
+            <div class="btn-box">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#preview"
+                    id="preview-btn-2">Preview</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#export"
+                    id="export-btn-2">Export</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#toSite" id="add-to-site-modal-opener"
+                    style="margin: 10px 0px;">Add to Site</button>
+            </div>
+        </div>
+
+        <span style="font-size: smaller;" id="notification-bulkscrape">Scraping in progress. Don't reload or close this window</span>
+
+        <div class="seperator" style="margin-top: 10px;"></div>
+
+        <div class="fields" id="logs" style="max-height: 20em;overflow: auto;">
+
+        </div>
+        <center>
+            <div class="spinner-border" style="margin-left: 20px;" hidden id="gol-gol"></div>
+        </center>
+
+    </div>
+
+    <!-- Bulk Scrape -->
+    <div class="section-settings">
+        <div class="bar">
+
+            <div class="main-bar">
+                <h3>Bulk Scrape</h3>
+            </div>
+
+            <div class="inp-box main-bar" style="margin: 22px 0px; justify-content:space-evenly;">
+                <div class="form-group">
+                    <label style="font-size:medium;">Wait for page load (in seconds) Def: 4 secs</label>
+                    <input type="number" class="form-control" id="waitForLoad" placeholder="Enter seconds">
+                </div>
+                <div class="form-group">
+                    <label style="font-size:medium;">Interval between each popup (in seconds) Def: 5 secs</label>
+                    <input type="number" class="form-control" id="interval" placeholder="Enter seconds">
+                </div>
+            </div>
+
+        </div>
+
+        <span style="font-size: smaller;">To remove any field, leave it empty. It'll not be considered during scraping
+            or saving. <br>
+            If there's problem during scraping, try increasing page load time. <br>
+            If you cannot download all files, increase interval bw each popup
+        </span>
+        <div class="seperator" style="margin-top: 10px;"></div>
+
+        <div class="fields" id="main-bulk-scrape">
+
+        </div>
+
+        <div class="alert alert-success no-display" id="bulk-scrape-success-banner" role="alert">
+            Urls saved successfully
+        </div>
+
+        <div class="btn-box">
+            <button class="btn btn-primary" id="startBulkExport">Start Scraping</button>
+            <button class="btn btn-primary" id="saveUrlFields">Save</button>
+            <button class="btn btn-primary" id="deleteAllFields">Delete All</button>
+            <button class="btn btn-primary" id="addUrlField">+</button>
+        </div>
+
+    </div>
+
+
+    <!-- Preview Modal -->
+    <div class="modal fade" id="preview" tabindex="-1" aria-labelledby="Preview" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="preview-modal-label">Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="preview-boxes">
+
+                    </div>
+
+                    <div id="table-wrapper" class="no-display">
+                        <table id="data-table" >
+                            
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal fade" id="export" tabindex="-1" aria-labelledby="Export" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="export-modal-label">Export</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body" id="export-modal-body">
+                    <a download="data.csv" href="#" id="download-csv">Download Here</a>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to site Modal -->
+    <div class="modal fade" id="toSite" tabindex="-1" aria-labelledby="toSite" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="preview-modal-label">Select appropriate fields for product properties
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="width: 50%; display: flex; align-items: center; justify-content: center;">
+                            <h3>Properties</h3>
+                        </div>
+                        <div style="width: 50%; display: flex; align-items: center; justify-content: center;">
+                            <h3>Fields</h3>
+                        </div>
+                    </div>
+
+                    <!-- Here comes the properties u wanna import -->
+                    <div id="fields-selection-for-prod" style="max-height: 270px;max-width: 466px;overflow: auto;margin: 18px 0px;">
+
+                    </div>
+
+                    <center style="margin-top: 20px;">
+                        <Button class="btn btn-primary" id="add-selection-box-btn">+</Button>
+                        <Button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#toSite"
+                            id="add-to-site-btn">Add to Site</Button>
+                        <div class="spinner-border" hidden id="spinner"></div>
+                    </center>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../assests/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assests/excellentexport.js"></script>
+
+
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="general.js"></script>
+<script type="text/javascript" src="fields.js"></script>
+<script type="text/javascript" src="sitemap.js"></script>
+<script type="text/javascript" src="bulk export.js"></script>
+<script type="text/javascript" src="export to site.js"></script>
+<script type="text/javascript" src="preview.js"></script>
+<script type="text/javascript" src="settings.js"></script>
+
+</html>
