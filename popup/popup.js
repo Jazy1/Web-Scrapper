@@ -1,97 +1,81 @@
+window.addEventListener('DOMContentLoaded', () => {
 
-let curr = new Date()
-let aj = curr.getDate()
-let mahi = curr.getMonth() + 1
-console.log(`Today: ${aj}/${mahi}`);
+  updateConnectionStatus()
 
-// check start
-// if(mahi == 3) {
+  if (sitemap != null) {
 
-  // if (aj<=15) {
-    
-    window.addEventListener('DOMContentLoaded', () => {
-  
-      updateConnectionStatus()
-  
-      if (sitemap != null) {
-    
-        // Showing fields according to sitemap
-        if (sitemap != null) {
-          for (let i = 0; i < sitemap.length; i++) {
-            const scrapedField = sitemap[i];
-      
-            let inputWrapper = document.createElement("div")
-            inputWrapper.classList.add("form-group")
-            inputWrapper.innerHTML = `
+    // Showing fields according to sitemap
+    if (sitemap != null) {
+      for (let i = 0; i < sitemap.length; i++) {
+        const scrapedField = sitemap[i];
+
+        let inputWrapper = document.createElement("div")
+        inputWrapper.classList.add("form-group")
+        inputWrapper.innerHTML = `
             <label for="${scrapedField.name}">${scrapedField.name}</label>
             `
-            // <input type="text" class="form-control" id="${scrapedField.name}" placeholder="${scrapedField.name}" data-type="${scrapedField.type}">
+        // <input type="text" class="form-control" id="${scrapedField.name}" placeholder="${scrapedField.name}" data-type="${scrapedField.type}">
 
-            let theInp = document.createElement("input")
-            theInp.classList.add("form-control")
-            theInp.id = scrapedField.name
-            theInp.placeholder = scrapedField.name
-            theInp.dataset.type = scrapedField.type
-            theInp.oninput = ()=>{clearPreview(); makePreview()}
-            inputWrapper.appendChild(theInp)
-
-            document.getElementById("section-fields").appendChild(inputWrapper)
-          }
-        }
-  
-        // Getting Scraped Data
-        getScrapedData(sitemap, function(scrapedData) {
-          showDataIntoFields(scrapedData)
-        })
-        
-
-        // Get preview ready
-        setTimeout(()=>{
+        let theInp = document.createElement("input")
+        theInp.classList.add("form-control")
+        theInp.id = scrapedField.name
+        theInp.placeholder = scrapedField.name
+        theInp.dataset.type = scrapedField.type
+        theInp.oninput = () => {
+          clearPreview();
           makePreview()
-        },500)
+        }
+        inputWrapper.appendChild(theInp)
 
-        // Show saved fields selections, if any
-        showSelections()
-
+        document.getElementById("section-fields").appendChild(inputWrapper)
       }
-      
-    });
-    
-    let sitemap = JSON.parse(localStorage.getItem("sitemap"));
-    
-    // Listners
-    document.getElementById("preview-btn-1").addEventListener("click", ()=>{
-      clearPreview()
+    }
+
+    // Getting Scraped Data
+    getScrapedData(sitemap, function (scrapedData) {
+      showDataIntoFields(scrapedData)
+    })
+
+
+    // Get preview ready
+    setTimeout(() => {
       makePreview()
-    })
+    }, 500)
 
-    document.getElementById("preview-btn-2").addEventListener("click", ()=>{
-      clearPreview()
-      makePreview()
-    })
-    
-    document.getElementById("export-btn-1").addEventListener("click", ()=>{
-      clearTable()
-      createInvisibleTable()
-      toCSV()
-    })
+    // Show saved fields selections, if any
+    showSelections()
 
-    document.getElementById("export-btn-2").addEventListener("click", ()=>{
-      clearTable()
-      createInvisibleTable()
-      toCSV()
-    })
-    
-    document.getElementById("download-csv-with-files").addEventListener("click", ()=>{
-      clearTable()
-      createInvisibleTable()
-      downloadWithCSV()
-    })
+  }
 
-  // }  
+});
 
-// }
-// Check end
+let sitemap = JSON.parse(localStorage.getItem("sitemap"));
 
+// Listners
+document.getElementById("preview-btn-1").addEventListener("click", () => {
+  clearPreview()
+  makePreview()
+})
 
+document.getElementById("preview-btn-2").addEventListener("click", () => {
+  clearPreview()
+  makePreview()
+})
 
+document.getElementById("export-btn-1").addEventListener("click", () => {
+  clearTable()
+  createInvisibleTable()
+  toCSV()
+})
+
+document.getElementById("export-btn-2").addEventListener("click", () => {
+  clearTable()
+  createInvisibleTable()
+  toCSV()
+})
+
+document.getElementById("download-csv-with-files").addEventListener("click", () => {
+  clearTable()
+  createInvisibleTable()
+  downloadWithCSV()
+})
